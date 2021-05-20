@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 services:
   redis:
     image: redis
@@ -6,23 +6,22 @@ services:
     ports:
       - "6379:6379"
     networks:
-        - dev-network
+      - dev-network
 
   redisinsight:
     image: redislabs/redisinsight:latest
     ports:
-      - '8001:8001'
+      - "8001:8001"
     volumes:
-      - /home/drigolx/Dev/redisdb:/db 
-      #- C:\redis-ex:/db 
-    depends_on: 
-        - redis
+      - /home/drigolx/Dev/redisdb:/db
+      #- C:\redis-ex:/db
+    depends_on:
+      - redis
     networks:
-        - dev-network
+      - dev-network
 
 networks:
-    dev-network:
-        driver: bridge
-
+  dev-network:
+    driver: bridge
 # access http://localhost:8001/ to RedisInsight
-# on connection, try localhost on host value, if dont pass, try IP address of your machine 
+# on connection, try localhost on host value, if dont pass, try IP address of your machine
