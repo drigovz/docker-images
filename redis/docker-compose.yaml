@@ -13,7 +13,8 @@ services:
     ports:
       - '8001:8001'
     volumes:
-      - C:\redis-ex:/db 
+      - /home/drigolx/Dev/redisdb:/db 
+      #- C:\redis-ex:/db 
     depends_on: 
         - redis
     networks:
