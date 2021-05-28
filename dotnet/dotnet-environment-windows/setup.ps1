@@ -37,7 +37,7 @@ If (Test-Path -Path $redisPath) {
 # create dev-network
 docker network create --driver bridge dev-network
 
-# create containers do SQL Server, RedisInsight and Redis
+# create containers of SQL Server, RedisInsight and Redis
 docker-compose up -d
 
 # create container of .NET Core and connect on network-dev network
