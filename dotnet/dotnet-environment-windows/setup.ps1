@@ -1,5 +1,5 @@
-# criar os diretório necessários, e no Linux liberar a permissão de leitura e escrita
-# rodar o container pra criar instância do SQLServer e do Redis junto com a rede pra desenvolvimento
+# run this script to up the containers to create an instance of SQL Server and Redis 
+# together with the network for development
 
 # development environment on Windows 
 $dotnetPath = "C:\dev\dotnet-environment\dotnet"
@@ -7,37 +7,38 @@ $sqlPath = "C:\dev\dotnet-environment\mssql"
 $redisPath = "C:\dev\dotnet-environment\redisdb"
 
 # check dotnet path exists
-Write-Host "Checking .NET Core directory!"
+Write-Host "Checking .NET Core directory!" -ForegroundColor "Yellow" 
 If (Test-Path -Path $dotnetPath) {
-    Write-Host "Directory " $dotnetPath " already exists!"
+    # Write-Host "Directory " $dotnetPath " already exists!" -ForegroundColor "Green"
+    Write-Host "OK" -ForegroundColor "Green"
 } else {
-    Write-Host "Creating .NET Core directory!" -ForegroundColor "Green"
+    Write-Host "Creating .NET Core directory!" -ForegroundColor "Cyan"
     mkdir -p $dotnetPath
 }
 
 # check SQL Server path exists
-Write-Host "Checking SQL Server directory!"
+Write-Host "Checking SQL Server directory!" -ForegroundColor "Yellow" 
 If (Test-Path -Path $sqlPath) {
-    Write-Host "Directory " $sqlPath " already exists!" 
+    Write-Host "OK" -ForegroundColor "Green" 
 } else {
-    Write-Host "Creating SQL Server directory!" -ForegroundColor "Green"
+    Write-Host "Creating SQL Server directory!" -ForegroundColor "Cyan"
     mkdir -p $sqlPath
 }
 
 # check Redis path exists
-Write-Host "Checking Redis directory!"
+Write-Host "Checking Redis directory!" -ForegroundColor "Yellow" 
 If (Test-Path -Path $redisPath) {
-    Write-Host "Directory " $redisPath " already exists!" 
+    Write-Host "OK" -ForegroundColor "Green"
 } else {
-    Write-Host "Creating SQL Server directory!" -ForegroundColor "Green"
+    Write-Host "Creating Redis directory!" -ForegroundColor "Cyan"
     mkdir -p $redisPath
 }
 
-# creating network dev
-# docker network create --driver bridge dev-network
+# create dev-network
+docker network create --driver bridge dev-network
 
-# criar os containers do SQL Server e do Redis
+# create containers do SQL Server, RedisInsight and Redis
 docker-compose up -d
 
-# roda o comando para criar o container do dotnet
+# create container of .NET Core and connect on network-dev network
 docker run  --name dotnet --rm --volume $dotnetPath":/srv/app" --workdir "/srv/app" --publish 5000:5000 -it --network dev-network mcr.microsoft.com/dotnet/sdk:3.1 bash
