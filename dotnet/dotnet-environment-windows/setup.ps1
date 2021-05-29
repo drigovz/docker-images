@@ -41,4 +41,9 @@ docker network create --driver bridge dev-network
 docker-compose up -d
 
 # create container of .NET Core and connect on network-dev network
-docker run  --name dotnet --rm --volume $dotnetPath":/srv/app" --workdir "/srv/app" --publish 5000:5000 -it --network dev-network mcr.microsoft.com/dotnet/sdk:3.1 bash
+# docker run  --name dotnet --rm --volume $dotnetPath":/srv/app" --workdir "/srv/app" -p 8080:80 -it --network dev-network mcr.microsoft.com/dotnet/sdk:3.1 bash
+docker exec -it dotnet bash
+
+# to run this app, change the applicationUrl on Properties/launchSettings.json file
+# "applicationUrl": "https://0.0.0.0:5001;http://0.0.0.0:5000"
+# access https://localhost:5001/

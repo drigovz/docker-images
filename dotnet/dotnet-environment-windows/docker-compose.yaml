@@ -37,6 +37,29 @@ services:
       - redis
     networks:
       - dev-network
+  
+  dotnet:
+    image: mcr.microsoft.com/dotnet/sdk:3.1
+    container_name: dotnet
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    volumes:
+      - C:\dev\dotnet-environment\dotnet:/srv/app
+    working_dir: /srv/app
+    depends_on:
+      - redisinsight
+    environment:
+      BUILD_CONFIGURATION: "Debug"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      # DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      ASPNETCORE_URLS: "http://+:80"
+    expose:
+      - "80"
+    networks:
+      - dev-network
     
 networks:
   dev-network:
