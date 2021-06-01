@@ -3,6 +3,7 @@ version: "3.7"
 services:
   postgres:
     image: postgres
+    container_name: postgres
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
@@ -14,6 +15,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
+    container_name: pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
